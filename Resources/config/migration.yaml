@@ -1,0 +1,40 @@
+services:
+  _defaults:
+    autowire: false      # Automatically injects dependencies in your services.
+    autoconfigure: false # Automatically registers your services as commands, event subscribers, etc.
+
+  FLE\JsonHydrator\Migration\Command\GenerateFileCommand:
+    arguments:
+      $migration: '@FLE\JsonHydrator\Migration\Migration'
+    tags: ['console.command']
+
+  FLE\JsonHydrator\Migration\Command\GenerateFunctionCommand:
+    arguments:
+      $migrationFunctions: '@FLE\JsonHydrator\Migration\MigrationFunctions'
+    tags: ['console.command']
+
+  FLE\JsonHydrator\Migration\Command\MigrationMigrateCommand:
+    arguments:
+      $migration: '@FLE\JsonHydrator\Migration\Migration'
+      $migrationFunctions: '@FLE\JsonHydrator\Migration\MigrationFunctions'
+    tags: ['console.command']
+
+  FLE\JsonHydrator\Migration\Command\MigrationStatusCommand:
+    arguments:
+      $migration: '@FLE\JsonHydrator\Migration\Migration'
+      $migrationFunctions: '@FLE\JsonHydrator\Migration\MigrationFunctions'
+    tags: ['console.command']
+
+  FLE\JsonHydrator\Migration\Migration:
+    arguments:
+      $connection: '@FLE\JsonHydrator\Database\Connection'
+      $migrationDirectory: '%migration_directory%'
+      $requestDirectory: '%migration_request_directory%'
+      $logger: '@Psr\Log\LoggerInterface'
+
+  FLE\JsonHydrator\Migration\MigrationFunctions:
+    arguments:
+      $connection: '@FLE\JsonHydrator\Database\Connection'
+      $requestDirectory: '%migration_request_directory%'
+      $functionsDirectory: '%kernel.project_dir%/sql/function'
+      $logger: '@Psr\Log\LoggerInterface'

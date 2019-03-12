@@ -1,0 +1,26 @@
+services:
+  _defaults:
+    autowire: false      # Automatically injects dependencies in your services.
+    autoconfigure: false # Automatically registers your services as commands, event subscribers, etc.
+    public: false
+
+  FLE\JsonHydrator\Serializer\EventSubscriber\SaveEventSubscriber:
+    arguments:
+      ['@FLE\JsonHydrator\Serializer\EntityCollection']
+    tags:
+      - { name: jms_serializer.event_subscriber }
+
+  FLE\JsonHydrator\Serializer\EntityCollection:
+    arguments:
+      ['@jms_serializer.metadata_factory']
+
+  jms_serializer.unserialize_object_constructor:
+    class: FLE\JsonHydrator\Serializer\UnserializeObjectConstructor
+    arguments:
+      ['@FLE\JsonHydrator\Serializer\EntityCollection']
+
+  FLE\JsonHydrator\Serializer\Serializer:
+    arguments:
+      $jmsSerializer: '@jms_serializer.serializer'
+      $stopwatch: '@?debug.stopwatch'
+      $logger: '@?monolog.logger.serializer'

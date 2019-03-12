@@ -1,0 +1,23 @@
+services:
+  _defaults:
+    autowire: false      # Automatically injects dependencies in your services.
+    autoconfigure: false # Automatically registers your services as commands, event subscribers, etc.
+
+  FLE\JsonHydrator\Database\Connection:
+    arguments:
+      $dbName: '%env(DB_NAME)%'
+      $host: '%env(HOST)%'
+      $port: '%env(PORT)%'
+      $dbUser: '%env(DB_USER)%'
+      $dbPwd: '%env(DB_PWD)%'
+      $stopwatch: '@?debug.stopwatch'
+      $serializer: '@FLE\JsonHydrator\Serializer\Serializer'
+      $entityCollection: '@FLE\JsonHydrator\Serializer\EntityCollection'
+      $logger: '@?monolog.logger.sql'
+
+  FLE\JsonHydrator\Repository\RepositoryFactory:
+    arguments:
+      $connection: '@FLE\JsonHydrator\Database\Connection'
+      $serializer: '@FLE\JsonHydrator\Serializer\Serializer'
+      $entityCollection: '@FLE\JsonHydrator\Serializer\EntityCollection'
+      $requestDirectory: '%request_directory%'
