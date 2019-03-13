@@ -16,6 +16,7 @@
         "ext-json": "*",
         "ext-pdo": "*",
         "ext-pdo_pgsql": "*",
+        "jms/serializer-bundle": "3.1.0",
         "symfony/yaml": "4.2.*",
         "symfony/dependency-injection": "^4.0",
         "symfony/framework-bundle": "^4.0",

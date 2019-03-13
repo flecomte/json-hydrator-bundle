@@ -6,8 +6,8 @@ services:
   FLE\JsonHydrator\Database\Connection:
     arguments:
       $dbName: '%env(DB_NAME)%'
-      $host: '%env(HOST)%'
-      $port: '%env(PORT)%'
+      $host: '%env(DB_HOST)%'
+      $port: '%env(DB_PORT)%'
       $dbUser: '%env(DB_USER)%'
       $dbPwd: '%env(DB_PWD)%'
       $stopwatch: '@?debug.stopwatch'
