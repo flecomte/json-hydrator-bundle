@@ -29,12 +29,13 @@ services:
     arguments:
       $connection: '@FLE\JsonHydrator\Database\Connection'
       $migrationDirectory: '%migration_directory%'
-      $requestDirectory: '%migration_request_directory%'
+      $requestMigrationDirectory: '%migration_request_directory%'
       $logger: '@Psr\Log\LoggerInterface'
 
   FLE\JsonHydrator\Migration\MigrationFunctions:
     arguments:
       $connection: '@FLE\JsonHydrator\Database\Connection'
-      $requestDirectory: '%migration_request_directory%'
+      $requestDirectory: '%request_directory%'
       $functionsDirectory: '%kernel.project_dir%/sql/function'
+      $requestMigrationDirectory: '%migration_request_directory%'
       $logger: '@Psr\Log\LoggerInterface'
