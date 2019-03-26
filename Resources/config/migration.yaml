@@ -23,6 +23,7 @@ services:
     arguments:
       $migration: '@FLE\JsonHydrator\Migration\Migration'
       $migrationFunctions: '@FLE\JsonHydrator\Migration\MigrationFunctions'
+      $connection: '@FLE\JsonHydrator\Database\Connection'
     tags: ['console.command']
 
   FLE\JsonHydrator\Migration\Migration:
