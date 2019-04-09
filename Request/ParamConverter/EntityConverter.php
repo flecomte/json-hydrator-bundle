@@ -5,6 +5,7 @@ namespace FLE\JsonHydratorBundle\Request\ParamConverter;
 use FLE\JsonHydrator\Entity\IdEntityInterface;
 use FLE\JsonHydrator\Entity\UuidEntityInterface;
 use FLE\JsonHydrator\Repository\IdRepository;
+use FLE\JsonHydrator\Repository\LogicException;
 use FLE\JsonHydrator\Repository\NotFoundException;
 use FLE\JsonHydrator\Repository\RepositoryFactory;
 use FLE\JsonHydrator\Repository\UuidRepository;
@@ -87,6 +88,8 @@ class EntityConverter implements ParamConverterInterface
                 $request->attributes->set($name, $entity);
 
                 return true;
+            } else {
+                throw new LogicException('Repository must implement "UuidRepository" or "IdRepository" interface');
             }
         }
 
