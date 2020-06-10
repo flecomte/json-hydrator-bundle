@@ -20,10 +20,7 @@ use function is_numeric;
 
 class EntityConverter implements ParamConverterInterface
 {
-    /**
-     * @var RepositoryFactory
-     */
-    private $repositoryFactory;
+    private RepositoryFactory $repositoryFactory;
 
     /**
      * EntityConverter constructor.
@@ -37,8 +34,6 @@ class EntityConverter implements ParamConverterInterface
 
     /**
      * Checks if the object is supported.
-     *
-     * @param ParamConverter $configuration
      *
      * @return bool True if the object is supported, else false
      *
@@ -57,9 +52,6 @@ class EntityConverter implements ParamConverterInterface
     /**
      * Stores the object in the request.
      *
-     * @param Request        $request
-     * @param ParamConverter $configuration Contains the name, class and options of the object
-     *
      * @return bool True if the object has been successfully set, else false
      */
     public function apply(Request $request, ParamConverter $configuration)
@@ -72,7 +64,7 @@ class EntityConverter implements ParamConverterInterface
             $repository = $this->repositoryFactory->getRepository($class);
             if (Uuid::isValid($value) && $repository instanceof UuidRepository) {
                 try {
-                    $entity = $repository->findByUuid($value);
+                    $entity = $repository->findById($value);
                 } catch (NotFoundException $e) {
                     throw new NotFoundHttpException("Entity \"$class\" with uuid \"$value\" not found");
                 }
